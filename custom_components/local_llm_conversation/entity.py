@@ -107,7 +107,7 @@ def _convert_content(
             {
                 "role": "tool",
                 "tool_call_id": content.tool_call_id,
-                "content": json.dumps(content.tool_result),
+                "content": json.dumps(content.result.data),
             }
         ]
 
