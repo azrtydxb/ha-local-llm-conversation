@@ -111,7 +111,7 @@ async def test_tool_call_ids_survive_the_round_trip() -> None:
         agent_id="conversation.test",
         tool_call_id="call_9",
         tool_name="HassTurnOn",
-        tool_result={"speech": {}},
+        result=llm.ToolResult(data={"speech": {}}),
     )
 
     (assistant_message,) = _convert_content(assistant)
