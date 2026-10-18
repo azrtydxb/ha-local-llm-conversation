@@ -1,0 +1,26 @@
+# Release full tier — azrtydxb/.github/templates/release-full.yml, specialised
+# for this repo's reusable-python caller. Runs the whole suite (all markers) on a
+# versioned tag. Runner kept on ubuntu-latest to match the existing Validate workflow.
+name: release-full
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  full:
+    uses: azrtydxb/.github/.github/workflows/reusable-python.yml@main
+    with:
+      tier: full
+      runner: ubuntu-latest
+      working-directory: .
+      python-version: "3.14"
+      install: pip install -r requirements_test.txt
