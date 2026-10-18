@@ -1,0 +1,31 @@
+# Nightly integration tier — azrtydxb/.github/templates/nightly-integration.yml,
+# specialised for this repo's reusable-python caller.
+#
+# The HA component integration/e2e suites were not split out of the PR gate when
+# the standard landed; this runner selects `pytest -m "not e2e"` so any test
+# tagged @pytest.mark.integration starts running nightly automatically. Runner
+# kept on ubuntu-latest to match the repo's existing Validate workflow.
+name: nightly-integration
+
+on:
+  schedule:
+    # 02:17 UTC daily (offset from the hour to avoid the fleet's top-of-hour crush).
+    - cron: "17 2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  integration:
+    uses: azrtydxb/.github/.github/workflows/reusable-python.yml@main
+    with:
+      tier: integration
+      runner: ubuntu-latest
+      working-directory: .
+      python-version: "3.14"
+      install: pip install -r requirements_test.txt
