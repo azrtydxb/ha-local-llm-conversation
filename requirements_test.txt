@@ -1,6 +1,6 @@
 # Pins the Home Assistant version the tests run against. Unpinned, CI resolves an
 # older release whose companion libraries no longer match, and collection fails.
-pytest-homeassistant-custom-component==0.13.372
+pytest-homeassistant-custom-component==0.13.373
 
 # Required by homeassistant.components.conversation but not pulled in by the test
 # harness. Versions must match that component's own manifest for the HA release
